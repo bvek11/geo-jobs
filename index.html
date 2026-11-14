@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Geo Jobs Weekly</title>
+<meta name="description" content="GIS, Earth observation and SAR jobs posted in the past week.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f6b5c'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M7.5 16h17M16 7.5c3.2 2.4 3.2 14.6 0 17M16 7.5c-3.2 2.4-3.2 14.6 0 17' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --ink: #17212b;
+  --muted: #5d6b78;
+  --line: #dfe4e1;
+  --accent: #0f6b5c;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f1ed;
+  --geo: #0f6b5c;
+  --geo-bg: #dff1ec;
+  --data: #5b3fa6;
+  --data-bg: #ebe5f8;
+  --row-hover: #f1f6f4;
+  --shadow: 0 1px 2px rgba(23, 33, 43, .06), 0 6px 20px rgba(23, 33, 43, .05);
+  --radius: 12px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #11161b;
+    --surface: #182027;
+    --ink: #e8edf0;
+    --muted: #9aa8b4;
+    --line: #2a353f;
+    --accent: #4fc3ad;
+    --accent-ink: #08201b;
+    --accent-soft: #17332e;
+    --geo: #6fd6c1;
+    --geo-bg: #173630;
+    --data: #b9a4f2;
+    --data-bg: #2a2445;
+    --row-hover: #1d2830;
+    --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 var(--font);
+}
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+header.top { padding: 36px 0 20px; }
+.kicker {
+  margin: 0 0 6px;
+  font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--accent);
+}
+h1 { margin: 0; font-size: clamp(26px, 4.2vw, 36px); line-height: 1.15; letter-spacing: -.02em; }
+.lede { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+
+.stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.stat {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 10px 16px; min-width: 118px;
+}
+.stat b { display: block; font-size: 22px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 13px; }
+
+.controls {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--bg);
+  padding: 14px 0 12px;
+  display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center;
+}
+.search { flex: 1 1 260px; position: relative; }
+.search input {
+  width: 100%; height: 42px; padding: 0 14px 0 38px;
+  font: inherit; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+}
+.search input:focus-visible, .chip:focus-visible, th button:focus-visible, .apply:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.search svg { position: absolute; left: 12px; top: 12px; width: 18px; height: 18px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font: inherit; font-size: 14px; cursor: pointer;
+  height: 36px; padding: 0 13px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.chip .n { color: var(--muted); font-variant-numeric: tabular-nums; margin-left: 4px; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.chip[aria-pressed="true"] .n { color: inherit; opacity: .8; }
+.count { margin: 0; color: var(--muted); font-size: 13px; flex-basis: 100%; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  text-align: left; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--muted); padding: 0; border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+thead th button, thead th .plain {
+  all: unset; display: flex; align-items: center; gap: 6px; padding: 12px 16px; width: 100%; box-sizing: border-box;
+}
+thead th button { cursor: pointer; }
+thead th button:hover { color: var(--ink); }
+thead th button::after { content: "↕"; opacity: .35; font-size: 12px; }
+thead th[aria-sort="ascending"] button::after { content: "↑"; opacity: 1; color: var(--accent); }
+thead th[aria-sort="descending"] button::after { content: "↓"; opacity: 1; color: var(--accent); }
+tbody td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--row-hover); }
+.c-job { width: 44%; }
+.c-company { width: 22%; }
+.c-location { width: 20%; }
+.c-link { width: 14%; text-align: right; }
+.title { font-weight: 600; overflow-wrap: anywhere; }
+.meta { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.tag { font-size: 11.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.tag.geo { color: var(--geo); background: var(--geo-bg); }
+.tag.data { color: var(--data); background: var(--data-bg); }
+.via { display: block; font-size: 12.5px; color: var(--muted); }
+td.c-company, td.c-location { overflow-wrap: anywhere; }
+.apply {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 7px 13px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none;
+  color: var(--accent); background: var(--accent-soft);
+}
+.apply:hover { background: var(--accent); color: var(--accent-ink); }
+.empty { padding: 44px 20px; text-align: center; color: var(--muted); }
+.empty b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
+
+section.more { margin: 26px 0 0; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); margin-top: 10px; }
+summary { cursor: pointer; padding: 14px 16px; font-weight: 600; list-style-position: inside; border-radius: var(--radius); }
+summary small { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.details-body { padding: 0 16px 16px; color: var(--muted); font-size: 14px; }
+.manual { columns: 3 220px; column-gap: 28px; margin: 0; padding: 0; list-style: none; }
+.manual li { break-inside: avoid; padding: 3px 0; }
+.manual a { text-decoration: none; }
+.manual a:hover { text-decoration: underline; }
+.fails { margin: 8px 0 0; padding-left: 18px; }
+footer { margin: 28px 0 44px; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 720px) {
+  .wrap { padding: 0 14px; }
+  header.top { padding-top: 26px; }
+  thead { position: absolute; left: -9999px; }
+  table, tbody, tr, td { display: block; width: auto; }
+  tbody tr { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  tbody tr:last-child { border-bottom: 0; }
+  tbody td { padding: 0; border: 0; }
+  td.c-company { margin-top: 8px; }
+  td.c-company::before, td.c-location::before {
+    content: attr(data-label); display: inline-block; min-width: 76px;
+    font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
+  }
+  .via { display: inline; margin-left: 6px; }
+  td.c-link { text-align: left; margin-top: 10px; }
+  .stat { flex: 1 1 calc(50% - 10px); min-width: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip, .apply { transition: background-color .12s, color .12s, border-color .12s; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="kicker" id="period">Past 7 days</p>
+    <h1>Geo Jobs Weekly</h1>
+    <p class="lede">New GIS, Earth-observation, remote-sensing and SAR roles from tracked employers and job boards.</p>
+    <ul class="stats" aria-label="This week in numbers">
+      <li class="stat"><b id="s-jobs">–</b><span>new roles</span></li>
+      <li class="stat"><b id="s-geo">–</b><span>GIS · EO · SAR</span></li>
+      <li class="stat"><b id="s-companies">–</b><span>employers hiring</span></li>
+      <li class="stat"><b id="s-sources">–</b><span>sources checked</span></li>
+    </ul>
+  </header>
+
+  <div class="controls">
+    <label class="search">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search job, company or location" autocomplete="off" aria-label="Search job, company or location">
+    </label>
+    <div class="chips" role="group" aria-label="Filter by role type">
+      <button class="chip" data-tag="all" aria-pressed="true">All<span class="n" id="n-all"></span></button>
+      <button class="chip" data-tag="geo" aria-pressed="false">GIS · EO · SAR<span class="n" id="n-geo"></span></button>
+      <button class="chip" data-tag="data" aria-pressed="false">Data &amp; analytics<span class="n" id="n-data"></span></button>
+      <button class="chip" data-tag="other" aria-pressed="false">Other roles<span class="n" id="n-other"></span></button>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </div>
+
+  <main class="card">
+    <table>
+      <thead>
+        <tr>
+          <th class="c-job" scope="col" data-sort="title"><button type="button">Job</button></th>
+          <th class="c-company" scope="col" data-sort="company"><button type="button">Company or firm</button></th>
+          <th class="c-location" scope="col" data-sort="location"><button type="button">Location</button></th>
+          <th class="c-link" scope="col"><span class="plain" style="justify-content:flex-end">Application link</span></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden></div>
+  </main>
+
+  <section class="more">
+    <details id="manual-box" hidden>
+      <summary>Career pages to check by hand<small id="manual-n"></small></summary>
+      <div class="details-body">
+        <p>These employers have no feed that can be read automatically, so they are not in the table above.</p>
+        <ul class="manual" id="manual"></ul>
+      </div>
+    </details>
+    <details id="source-box" hidden>
+      <summary>About this list<small id="source-n"></small></summary>
+      <div class="details-body" id="source-body"></div>
+    </details>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var TAG_ORDER = { geo: 0, data: 1, other: 2 };
+  var TAG_LABEL = { geo: "GIS · EO · SAR", data: "Data" };
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var state = { jobs: [], tag: "all", q: "", sort: null, dir: 1 };
+  var $ = function (id) { return document.getElementById(id); };
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+  function day(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+    return m ? Number(m[3]) + " " + MONTHS[Number(m[2]) - 1] : "";
+  }
+  function safeUrl(url) {
+    return /^https?:\/\//i.test(url || "") ? url : "#";
+  }
+  function fold(text) {
+    return (text || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
+  }
+
+  function matchesQuery(job) {
+    if (!state.q) return true;
+    return state.q.split(/\s+/).every(function (word) { return job._text.indexOf(word) !== -1; });
+  }
+  function visibleJobs() {
+    var list = state.jobs.filter(function (j) {
+      return matchesQuery(j) && (state.tag === "all" || j.tag === state.tag);
+    });
+    if (state.sort) {
+      var key = state.sort, dir = state.dir;
+      list.sort(function (a, b) {
+        var x = fold(a[key]), y = fold(b[key]);
+        if (!x && y) return 1;           // blanks last, whichever direction
+        if (x && !y) return -1;
+        return x < y ? -dir : x > y ? dir : 0;
+      });
+    }
+    return list;
+  }
+
+  function row(job) {
+    var tr = el("tr");
+
+    var tdJob = el("td", "c-job");
+    tdJob.appendChild(el("div", "title", job.title));
+    var meta = el("div", "meta");
+    if (TAG_LABEL[job.tag]) meta.appendChild(el("span", "tag " + job.tag, TAG_LABEL[job.tag]));
+    if (job.date) meta.appendChild(el("span", null, "Posted " + day(job.date)));
+    if (meta.childNodes.length) tdJob.appendChild(meta);
+    tr.appendChild(tdJob);
+
+    var tdCompany = el("td", "c-company", job.company || "—");
+    tdCompany.setAttribute("data-label", "Company");
+    if (job.via) tdCompany.appendChild(el("span", "via", "via " + job.via));
+    tr.appendChild(tdCompany);
+
+    var tdLocation = el("td", "c-location", job.location || "—");
+    tdLocation.setAttribute("data-label", "Location");
+    tr.appendChild(tdLocation);
+
+    var tdLink = el("td", "c-link");
+    var a = el("a", "apply", "Apply ↗");
+    a.href = safeUrl(job.url);
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.setAttribute("aria-label", "Apply: " + job.title + (job.company ? " at " + job.company : ""));
+    tdLink.appendChild(a);
+    tr.appendChild(tdLink);
+    return tr;
+  }
+
+  function render() {
+    var list = visibleJobs();
+    var body = $("rows");
+    body.textContent = "";
+    var frag = document.createDocumentFragment();
+    list.forEach(function (job) { frag.appendChild(row(job)); });
+    body.appendChild(frag);
+
+    var counts = { all: 0, geo: 0, data: 0, other: 0 };
+    state.jobs.forEach(function (j) {
+      if (!matchesQuery(j)) return;
+      counts.all += 1;
+      counts[j.tag] = (counts[j.tag] || 0) + 1;
+    });
+    ["all", "geo", "data", "other"].forEach(function (t) { $("n-" + t).textContent = counts[t]; });
+
+    var empty = $("empty");
+    empty.hidden = list.length > 0;
+    document.querySelector("table").hidden = list.length === 0;
+    if (!list.length) {
+      empty.textContent = "";
+      if (state.jobs.length) {
+        empty.appendChild(el("b", null, "No roles match"));
+        empty.appendChild(document.createTextNode("Try a different search or filter."));
+      } else {
+        empty.appendChild(el("b", null, "No new roles this week"));
+        empty.appendChild(document.createTextNode("Nothing new was posted by the tracked sources in the past 7 days."));
+      }
+    }
+    $("count").textContent = state.jobs.length
+      ? "Showing " + list.length + " of " + state.jobs.length + " roles"
+      : "";
+  }
+
+  function wire() {
+    var timer;
+    $("q").addEventListener("input", function (e) {
+      clearTimeout(timer);
+      timer = setTimeout(function () { state.q = fold(e.target.value.trim()); render(); }, 120);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (chip) {
+      chip.addEventListener("click", function () {
+        state.tag = chip.getAttribute("data-tag");
+        Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
+          c.setAttribute("aria-pressed", String(c === chip));
+        });
+        render();
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("th[data-sort]"), function (th) {
+      th.querySelector("button").addEventListener("click", function () {
+        var key = th.getAttribute("data-sort");
+        if (state.sort === key && state.dir === 1) state.dir = -1;
+        else if (state.sort === key) { state.sort = null; state.dir = 1; }   // third click: back to default order
+        else { state.sort = key; state.dir = 1; }
+        Array.prototype.forEach.call(document.querySelectorAll("th[data-sort]"), function (h) {
+          if (h.getAttribute("data-sort") === state.sort) h.setAttribute("aria-sort", state.dir === 1 ? "ascending" : "descending");
+          else h.removeAttribute("aria-sort");
+        });
+        render();
+      });
+    });
+  }
+
+  function show(data) {
+    state.jobs = (data.jobs || []).map(function (j) {
+      j._text = fold([j.title, j.company, j.location, j.via].join(" "));
+      return j;
+    });
+    // default order: GIS / EO / SAR first, then newest
+    state.jobs.sort(function (a, b) {
+      var t = (TAG_ORDER[a.tag] || 0) - (TAG_ORDER[b.tag] || 0);
+      if (t) return t;
+      return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+    });
+
+    var totals = data.totals || {};
+    var src = data.sources || {};
+    var failed = src.failed || [];
+    var sourceCount = (src.companies || 0) + (src.boards || 0);
+    $("s-jobs").textContent = totals.jobs || 0;
+    $("s-geo").textContent = totals.geo || 0;
+    $("s-companies").textContent = totals.companies || 0;
+    $("s-sources").textContent = sourceCount;
+    if (data.window_start && data.window_end) {
+      $("period").textContent = day(data.window_start) + " – " + day(data.window_end) + " " + data.window_end.slice(0, 4);
+    }
+
+    var manual = data.manual || [];
+    if (manual.length) {
+      var list = $("manual");
+      manual.forEach(function (m) {
+        var li = el("li"), a = el("a", null, m.name);
+        a.href = safeUrl(m.url); a.target = "_blank"; a.rel = "noopener noreferrer";
+        li.appendChild(a); list.appendChild(li);
+      });
+      $("manual-n").textContent = manual.length + " employers";
+      $("manual-box").hidden = false;
+    }
+
+    var body = $("source-body");
+    body.appendChild(el("p", null,
+      "Every week " + (src.companies || 0) + " employer career feeds and " + (src.boards || 0) +
+      " job boards are checked. A role is listed for 7 days after it is posted or first found. " +
+      "For large employers and job boards only roles related to GIS, Earth observation or SAR are kept."));
+    if (failed.length) {
+      body.appendChild(el("p", null, failed.length + " source" + (failed.length === 1 ? "" : "s") +
+        " could not be read in the latest run and will be retried next time:"));
+      var ul = el("ul", "fails");
+      failed.forEach(function (f) { ul.appendChild(el("li", null, f.name)); });
+      body.appendChild(ul);
+    }
+    $("source-n").textContent = failed.length ? failed.length + " source" + (failed.length === 1 ? "" : "s") + " unavailable" : "";
+    $("source-box").hidden = false;
+
+    if (data.generated_at) {
+      var when = new Date(data.generated_at);
+      $("footer").textContent = "Updated " + when.toLocaleString(undefined, {
+        weekday: "short", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+      }) + ". Refreshed every Saturday morning.";
+    }
+    render();
+  }
+
+  wire();
+  fetch("jobs.json", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(show)
+    .catch(function () {
+      document.querySelector("table").hidden = true;
+      var empty = $("empty");
+      empty.hidden = false;
+      empty.textContent = "";
+      empty.appendChild(el("b", null, "The job list could not be loaded"));
+      empty.appendChild(document.createTextNode("Please refresh the page in a minute."));
+    });
+})();
+</script>
+</body>
+</html>
